@@ -25,7 +25,7 @@ const Prompt = (props) => {
                     </div>
                 </div>
 
-                <p className="prompt__time">{ currentTime }</p>
+                <p className="prompt__time js-current_time">{ currentTime }</p>
             </fieldset>
         </form>
     );

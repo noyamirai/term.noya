@@ -93,6 +93,7 @@ function App() {
       <Section sectionHeading="Things Im good at" sectionType="skills" />
       <Section sectionHeading="Projects Im proud of" sectionType="projects" />
       <Section sectionHeading="Contact" sectionType="contact" />
+      <Section sectionHeading="Github Profile" sectionType="github" />
       {extraComponents}
     </article>
   )

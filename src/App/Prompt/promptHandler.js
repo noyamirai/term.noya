@@ -3,7 +3,7 @@ import UtilsClass from '../scripts/utils';
 class PromptHandler {
 
     constructor () {
-        this.defaultPrompts = ['help', 'about', 'projects', 'skills', 'contact', 'clear'];
+        this.defaultPrompts = ['help', 'about', 'projects', 'skills', 'contact', 'git', 'github', 'clear'];
         this.sillyPrompts = ['hi', 'hello', 'stinky', 'hehe'];
     }
 
@@ -16,35 +16,10 @@ class PromptHandler {
         console.log('submission accepted:', userPrompt);
 
         if (userPrompt == 'clear') {
-            const articleElement = document.querySelector('article');
-
-            // On clear -> 'reset' terminal
-            const toRemove = articleElement.querySelectorAll('section, form:not(:last-of-type)');
-
-            toRemove.forEach(element => {
-                element.remove();
-            });
-
-            const currentInput = inputContainer.querySelector('input');
-            currentInput.value = null;
-
-            // remove focus
-            currentInput.focus();
-            inputContainer.classList.remove('typing');
-
-            const promptEl = inputContainer.closest('.prompt');
-
-            // set new time
-            const Utils = new UtilsClass();
-            const currentTimeLabel = promptEl.querySelector('.js-current_time');
-            currentTimeLabel.innerHTML = Utils.getCurrentTime();
-
-            // scroll to top of page
-            window.scrollTo(0, 0);
-
+            this.clearTerm(inputContainer);
             return {createSection: false, insertPrompt: false};
         }
-
+        
         const promptType = this.getPromptType(userPrompt);
 
         inputContainer.classList.add('disabled');
@@ -85,14 +60,8 @@ class PromptHandler {
                     // After clear we're back to only one prompt, but initially loaded sections don't exist anymore
                     } else {
                         console.log('reveal section + insert new prompt component');
-                        // revealSection(userPrompt).then(() => {
-                        //     // Add new prompt only after a new section has been added into view
-                        //     insertPromptPartial();
-                        //     displayPrevData(previousPrompts);
-                        // });
 
                         resolve({createSection: true, insertPrompt: true});
-
                     }
 
                     // Delete initial sections to avoid html clutter
@@ -103,23 +72,11 @@ class PromptHandler {
                 // After x prompt submissions
                 } else if (allPromptInputs.length > 1) {
                     console.log('reveal section + insert new prompt component');
-                    // revealSection(userPrompt).then(() => {
-                    //     // Add new prompt only after a new section has been added into view
-                    //     insertPromptPartial();
-                    //     displayPrevData(previousPrompts);
-                    // });
-
                     resolve({createSection: true, insertPrompt: true});
                 }
                 
                 console.log('create new prompt');
                 console.log('display prev prompt');
-
-                // // Create new prompt
-                // insertPromptPartial();
-
-                // // el.innerHtml resets form data so retrieve previous prompts and display in respective forms
-                // displayPrevData(previousPrompts);
 
                 resolve({createSection: false, insertPrompt: true});
 
@@ -130,6 +87,34 @@ class PromptHandler {
     }
 
     handleSillyPrompt = () => {
+    }
+
+    clearTerm = (inputContainer) => {
+        const articleElement = document.querySelector('article');
+
+        // On clear -> 'reset' terminal
+        const toRemove = articleElement.querySelectorAll('section, form:not(:last-of-type)');
+
+        toRemove.forEach(element => {
+            element.remove();
+        });
+
+        const currentInput = inputContainer.querySelector('input');
+        currentInput.value = null;
+
+        // remove focus
+        currentInput.focus();
+        inputContainer.classList.remove('typing');
+
+        const promptEl = inputContainer.closest('.prompt');
+
+        // set new time
+        const Utils = new UtilsClass();
+        const currentTimeLabel = promptEl.querySelector('.js-current_time');
+        currentTimeLabel.innerHTML = Utils.getCurrentTime();
+
+        // scroll to top of page
+        window.scrollTo(0, 0);
     }
 
     getUserPrompt = (form) => {

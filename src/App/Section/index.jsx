@@ -4,16 +4,48 @@ import Heading from '../Heading/index'
 
 const Section = (props) => {
 
+    const [currentType, setCurrentType] = React.useState(false);
+    const [gitProfileData, setGithubProfileData] = React.useState(false);
+
+    React.useEffect(() => {
+        setCurrentType(props.sectionType);
+
+        if (currentType && ['git', 'github'].includes(currentType)) {
+            console.log('git requested, do we have data?');
+
+            const data = localStorage.getItem('gitProfile');
+
+            if (data === null) {
+                console.log('doesnt exist! Fetch data');
+
+                fetch('https://api.github.com/users/noyamirai')
+                .then((res) => res.json())
+                .then((result) => {
+                    setGithubProfileData(result);
+                    localStorage.setItem('gitProfile', JSON.stringify(result));
+                });
+            } else {
+                const jsonData = JSON.parse(data);
+                console.log(jsonData);
+                setGithubProfileData(jsonData);
+            }
+
+        }
+
+        return () => { setCurrentType(false);  }
+
+    }, [currentType]);
+
     return (
         <section id={props.sectionId ?? props.sectionType} className={`info js-${props.sectionType} ${props.sectionId ? '' : 'hide'}`}>
             {props.sectionHeading ? <Heading text={props.sectionHeading} /> : ''}
-            <SectionContent sectionType={props.sectionType}/>
+            <SectionContent sectionType={props.sectionType} gitProfileData={gitProfileData}/>
         </section>
     );
 
 };
 
-const SectionContent = ({sectionType}) => {
+const SectionContent = ({ sectionType, gitProfileData }) => {
     
     switch (sectionType) {
         case 'help':
@@ -241,6 +273,12 @@ const SectionContent = ({sectionType}) => {
             return(
                 <p>command not found. type "help" to see available commands.</p>
             );
+        
+        case 'git': case 'github': 
+            return(
+                <p>github stuff: {gitProfileData.name}</p>
+            );
+        
         default:
             break;
     }
