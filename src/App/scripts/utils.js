@@ -27,7 +27,10 @@ class Utils {
             'about': 'Get to know me',
             'projects': 'Projects I am proud of',
             'skills': 'Things Im good at',
-            'contact': 'Contact'
+            'contact': 'Contact',
+            'git': 'Github profile',
+            'github': 'Github profile',
+            'repos': 'Some cool repos'
         }
 
         return headings[sectionId];

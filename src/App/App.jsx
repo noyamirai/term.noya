@@ -21,7 +21,7 @@ function App() {
 
   const setPrompt = () => {
     const newFormId = Utils.getNewPromptId();
-    setComponents(oldComponents => [...oldComponents, <Prompt key={newFormId} submitHandler={submitHandler} formId={`prompt-form-${newFormId}`} inputId={`promptInputField-${newFormId}`} />])
+    setComponents((oldComponents) => [...oldComponents, <Prompt key={oldComponents.length} submitHandler={submitHandler} formId={`prompt-form-${newFormId}`} inputId={`promptInputField-${newFormId}`} />])
   }
 
   const setSection = (sectionType) => {
@@ -29,7 +29,7 @@ function App() {
     const nId = sectionType + '-' + (allSpecificSections.length + 1);
     const sectionHeading = Utils.getSectionHeading(sectionType);
 
-    setComponents(oldComponents => [...oldComponents, <Section key={nId} sectionId={`js-${nId}`} sectionHeading={sectionHeading} sectionType={sectionType} />]);
+    setComponents((oldComponents) => [...oldComponents, <Section key={oldComponents.length} sectionId={`js-${nId}`} sectionHeading={sectionHeading} sectionType={sectionType} />]);
   }
 
   const handleBeforeUnload = () => {
@@ -94,6 +94,7 @@ function App() {
       <Section sectionHeading="Projects Im proud of" sectionType="projects" />
       <Section sectionHeading="Contact" sectionType="contact" />
       <Section sectionHeading="Github Profile" sectionType="github" />
+      <Section sectionHeading="Some cool repos" sectionType="repos" />
       {extraComponents}
     </article>
   )

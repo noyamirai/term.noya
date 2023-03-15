@@ -3,7 +3,7 @@ import UtilsClass from '../scripts/utils';
 class PromptHandler {
 
     constructor () {
-        this.defaultPrompts = ['help', 'about', 'projects', 'skills', 'contact', 'git', 'github', 'clear'];
+        this.defaultPrompts = ['help', 'about', 'projects', 'skills', 'contact', 'git', 'github', 'repos', 'clear'];
         this.sillyPrompts = ['hi', 'hello', 'stinky', 'hehe'];
     }
 
@@ -59,8 +59,6 @@ class PromptHandler {
 
                     // After clear we're back to only one prompt, but initially loaded sections don't exist anymore
                     } else {
-                        console.log('reveal section + insert new prompt component');
-
                         resolve({createSection: true, insertPrompt: true});
                     }
 
@@ -71,12 +69,8 @@ class PromptHandler {
 
                 // After x prompt submissions
                 } else if (allPromptInputs.length > 1) {
-                    console.log('reveal section + insert new prompt component');
                     resolve({createSection: true, insertPrompt: true});
                 }
-                
-                console.log('create new prompt');
-                console.log('display prev prompt');
 
                 resolve({createSection: false, insertPrompt: true});
 

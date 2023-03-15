@@ -4,48 +4,97 @@ import Heading from '../Heading/index'
 
 const Section = (props) => {
 
-    const [currentType, setCurrentType] = React.useState(false);
-    const [gitProfileData, setGithubProfileData] = React.useState(false);
-
-    React.useEffect(() => {
-        setCurrentType(props.sectionType);
-
-        if (currentType && ['git', 'github'].includes(currentType)) {
-            console.log('git requested, do we have data?');
-
-            const data = localStorage.getItem('gitProfile');
-
-            if (data === null) {
-                console.log('doesnt exist! Fetch data');
-
-                fetch('https://api.github.com/users/noyamirai')
-                .then((res) => res.json())
-                .then((result) => {
-                    setGithubProfileData(result);
-                    localStorage.setItem('gitProfile', JSON.stringify(result));
-                });
-            } else {
-                const jsonData = JSON.parse(data);
-                console.log(jsonData);
-                setGithubProfileData(jsonData);
-            }
-
-        }
-
-        return () => { setCurrentType(false);  }
-
-    }, [currentType]);
+    const type = props.sectionType.toLowerCase();
 
     return (
-        <section id={props.sectionId ?? props.sectionType} className={`info js-${props.sectionType} ${props.sectionId ? '' : 'hide'}`}>
+        <section id={props.sectionId ?? type} className={`info ${['git', 'github'].includes(type) ? 'info--profile' : ''} js-${props.sectionType} ${props.sectionId ? '' : 'hide'}`}>
             {props.sectionHeading ? <Heading text={props.sectionHeading} /> : ''}
-            <SectionContent sectionType={props.sectionType} gitProfileData={gitProfileData}/>
+
+            <SectionContent sectionType={type} />
         </section>
     );
 
 };
 
-const SectionContent = ({ sectionType, gitProfileData }) => {
+const SectionContent = ({ sectionType }) => {
+
+    const [gitData, setGithubData] = React.useState(false);
+
+    React.useEffect(() => {
+        const fetchData = async (params) => {
+            const response = await fetch(`https://api.github.com/${params}`);
+
+            if (response.ok) {
+                console.log('RESPONSE OK!!');
+
+                // Convert the response to JavaScript Object
+                const data = await response.json();
+
+                return data;
+            } else {
+                // If the response is not successful, throw an error with the HTTP status code
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+        }
+
+        const getData = async () => {
+
+            let fetches = [];
+            fetches.push(await fetchData('users/noyamirai'));
+            fetches.push(await fetchData('users/noyamirai/repos'));
+
+            const result = await Promise.all(fetches).then((data) => {
+
+                const repos = data[1].filter((item) => {
+                    if (['term.noya', 'WSLH', 'cmd-online', 'discord.github.io'].includes(item.name)) {
+                        return item;
+                    }
+                })
+
+                return { profile: data[0], repos: repos };
+            });
+
+            let languages = {};
+
+            for (let i = 0; i < result.repos.length; i++) {
+                const repo = result.repos[i];
+
+                if (repo.language) {
+                    // key exists in object -> increase count
+                    if ((repo.language in languages)) {
+                        languages[repo.language] = languages[repo.language] + 1;
+
+                        // key doesnt exist -> create and set count to 1
+                    } else {
+                        languages[repo.language] = 1;
+                    }
+                }
+            }
+
+            const mostUsedLang = Object.keys(languages).reduce((a, b) => languages[a] > languages[b] ? a : b);
+            result.profile.most_used_language = mostUsedLang;
+
+            return result;
+        }
+
+        if (['git', 'github', 'repos'].includes(sectionType)) {
+
+            const data = localStorage.getItem('gitProfile');
+
+            if (data === null) {
+
+                getData().then((result) => {
+                    localStorage.setItem('gitProfile', JSON.stringify(result));
+                    setGithubData(result);
+                });
+
+            } else {
+                const jsonData = JSON.parse(data);
+                console.log(jsonData);
+                setGithubData(jsonData);
+            }
+        }
+    }, [])
     
     switch (sectionType) {
         case 'help':
@@ -91,9 +140,9 @@ const SectionContent = ({ sectionType, gitProfileData }) => {
                 <div className="info__content">
                     <ul className="skills">
                         <li className="skill__item">
-                            <p>HMTL</p>
+                            <p>HMTL/CSS</p>
                             <div className="skill__level">
-                                <span className="skill__level__indicator js-skill-level-container" data-percentage="80">
+                                <span className="skill__level__indicator js-skill-level-container" data-percentage="90">
                                     <span className="blue">[</span>
                                     <span className="js-level">----------</span>
                                     <span className="blue">]</span>
@@ -102,9 +151,9 @@ const SectionContent = ({ sectionType, gitProfileData }) => {
                             </div>
                         </li>
                         <li className="skill__item">
-                            <p>CSS</p>
+                            <p>React.js</p>
                             <div className="skill__level">
-                                <span className="skill__level__indicator js-skill-level-container" data-percentage="60">
+                                <span className="skill__level__indicator js-skill-level-container" data-percentage="30">
                                     <span className="blue">[</span>
                                     <span className="js-level">----------</span>
                                     <span className="blue">]</span>
@@ -247,6 +296,44 @@ const SectionContent = ({ sectionType, gitProfileData }) => {
                 </div>
             );
 
+        case 'repos':
+
+            if (gitData) {
+            
+                return (
+                    <div className="info__content">
+                        <ul className="generic-list">
+
+                            { gitData.repos.map((val, k) => {
+                                return (
+                                    <li key={k} className="list__item">
+                                        <a href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/">
+                                            <h3>&#128279; {val.name} <span>{val.description ? '~' + val.description : ''}</span></h3>
+                                        </a>
+                                        <ul className="list__item__tags">
+                                            
+                                            {val.topics.length ? val.topics.map((topic, topicK) => {
+                                                return (
+                                                    <li key={topicK} className={`tag tag--` + topic.toLowerCase()}>
+                                                        {topic.toUpperCase()}
+                                                    </li>
+                                                );
+                                            }) : <li className={val.language ? `tag tag--` + val.language.toLowerCase() : `tag` }>
+                                                {val.language ?? 'no data'}
+                                            </li> }
+                                        </ul>
+                                    </li>
+                                );
+                            }) }
+
+
+                        </ul>
+                    </div>
+                );
+            }
+
+            break;
+
         case 'contact': 
 
             return(
@@ -274,11 +361,38 @@ const SectionContent = ({ sectionType, gitProfileData }) => {
                 <p>command not found. type "help" to see available commands.</p>
             );
         
-        case 'git': case 'github': 
-            return(
-                <p>github stuff: {gitProfileData.name}</p>
-            );
-        
+        case 'git': case 'github':
+
+            if (gitData) {
+
+                return (
+                    <div className='info__content'>
+                        <picture>
+                            <img src={gitData.profile.avatar_url} alt="Profile picture" />
+                        </picture>
+
+                        <div>
+                            <h3>{gitData.profile.name} <a className='link' href='https://github.com/noyamirai' target={'_blank'}>@{gitData.profile.login}</a></h3>
+                            <p>{gitData.profile.bio}</p>
+
+                            <ul className='profile-details'>
+                                <li className='list__item list__item--location'>
+                                    {gitData.profile.location}
+                                </li>
+                                <li className='list__item list__item--lang'>
+                                    Most used lang: Javascript
+                                </li>
+                                <li className='list__item list__item--repos'>
+                                    {gitData.profile.public_repos} repos
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                );
+            }
+
+            break;
+            
         default:
             break;
     }
