@@ -198,7 +198,7 @@ main {
 }
 
 @media only screen and (min-width: 750px) {
-  main { width: 70%; }
+  main { width: 80%; }
 }
 
 @media only screen and (min-width: 960px) {
@@ -211,6 +211,41 @@ main {
 
 @media only screen and (min-width: 1500px) {
   main { width: 750px; }
+}
+
+
+/*=============================================
+  #CARD
+=============================================*/
+article {
+  display: inline-block;
+
+  border: 2px solid var(--comment-color);
+  padding: var(--medium-padding) var(--small-padding);
+
+  width: 100%;
+  height: 450px;
+  min-height: 450px;
+
+  border-radius: 5px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  scroll-behavior: smooth;
+  scroll-padding: var(--default-padding);
+}
+
+@media only screen and (min-width: 380px) {
+  article { padding: 24px 16px; }
+}
+
+@media only screen and (min-width: 600px) {
+  article {
+    border: none;
+    padding: 24px 0;
+    height: auto;
+  }
 }
 
 /*=============================================
@@ -226,166 +261,6 @@ form {
 form + *,
 section + section,
 section + form { margin-top: var(--default-padding); }
-
-/*=============================================
-  #CARD CONTENT
-=============================================*/
-.info {
-
-}
-
-  .info__heading + .info__content { margin-top: var(--default-padding); }
-
-  .info__content {
-
-  }
-
-    .info__content p + p { margin-top: var(--small-padding); }
-
-/*=============================================
-  #SKILLS
-=============================================*/
-.skills {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: var(--small-padding);
-}
-
-@media only screen and (min-width: 480px) {
-  .skills { grid-template-columns: repeat(2, 1fr); }
-}
-@media only screen and (min-width: 600px) {
-  .skills { grid-template-columns: repeat(3, 1fr); }
-}
-
-  .skill__item {
-
-  }
-
-    .skill__level { display: flex; }
-
-      .skill__level__indicator {
-        display: flex;
-        align-items: center;
-      }
-
-      .skill__level__percentage {
-        color: var(--primary-color);
-        margin-left: 6px;
-      }
-
-/*=============================================
-  #LISTS
-=============================================*/
-.generic-list {
-
-}
-
-* + .generic-list { margin-top: var(--default-padding); }
-
-.generic-list--help, 
-.generic-list--link { display: grid; }
-
-.generic-list--help { grid-template-columns: repeat(3, 1fr); }
-.generic-list--link { grid-template-columns: repeat(2, 150px); }
-
-@media only screen and (min-width: 480px) {
-  .generic-list--link { grid-template-columns: repeat(3, 1fr); }
-}
-
-  .list__item {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .list__item + .list__item {
-    margin-top: var(--default-padding);
-    padding-top: var(--default-padding);
-
-    border-top: 2px dashed var(--comment-color);
-  }
-
-  .generic-list--help .list__item + .list__item,
-  .generic-list--link .list__item + .list__item {
-    margin-top: 4px;
-    padding-top: 0;
-    border: none;
-  }
-
-  .generic-list--link .list__item + .list__item {
-    margin: 0;
-  }
-
-    .list__item a {
-      color: var(--pink);
-      text-decoration: none;
-    }
-
-      .list__item a h3 { font-weight: 700; }
-
-      .list__item h3 {
-        font-size: var(--mobile-font-size-px);
-        font-size: var(--mobile-font-size-rem);
-        font-weight: 500;
-
-        width: 100%;
-      }
-
-      .generic-list--help .list__item h3,
-      .generic-list--link .list__item h3 {
-        font-weight: 600;
-      }
-
-      .generic-list--help .list__item h3 {
-        color: var(--pink);
-      }
-
-      .generic-list--link .list__item h3 {
-        color: var(--pink);
-      }
-
-        .list__item h3 > span {
-          font-weight: 500;
-          color: var(--text-color);
-        }
-
-        .list__item__tags {
-          display: flex;
-          align-items: center;
-          flex-wrap: wrap;
-
-          gap: 10px;
-          
-          margin-top: var(--small-padding);
-        }
-/*=============================================
-  #TAGS
-=============================================*/
-.tag {
-  padding: 4px 8px;
-  
-  color: var(--background-color);
-  text-transform: uppercase;
-  font-weight: 600;
-
-  font-size: 12px;
-  font-size: 1.2rem;
-
-  background-color: var(--highlight-color);
-}
-
-.tag--yellow,
-.tags--special { background-color: var(--yellow); }
-.tag--red,
-.tag--html { background-color: var(--red); }
-.tag--purple,
-.tag--css { background-color: var(--purple); }
-.tag--blue,
-.tag--javascript,
-.tag--reactjs { background-color: var(--blue); }
-.tag--green,
-.tag--nodejs { background-color: var(--green); }
 
 /*=============================================
   #SYSTEM MESSAGE

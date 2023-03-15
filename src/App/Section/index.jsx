@@ -118,6 +118,15 @@ const SectionContent = ({ sectionType }) => {
                             <h3>contact</h3>
                         </li>
                         <li className="list__item">
+                            <h3>repos</h3>
+                        </li>
+                        <li className="list__item">
+                            <h3>git</h3>
+                        </li>
+                        <li className="list__item">
+                            <h3>github</h3>
+                        </li>
+                        <li className="list__item">
                             <h3>clear</h3>
                         </li>
                     </ul>
