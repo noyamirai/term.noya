@@ -1,10 +1,19 @@
 import React from "react";
 import '../Prompt/prompt.css';
 
+import UtilsClass from '../scripts/utils';
+const Utils = new UtilsClass();
 
 const Prompt = (props) => {
 
-    // TODO current time
+    const [currentTime, setCurrentTime] = React.useState();
+
+    React.useEffect(() =>{
+
+        const newTime = Utils.getCurrentTime();
+        setCurrentTime(newTime);
+
+    }, [])
 
     return (
         <form className={props.formId ? '' : 'hide'} onSubmit={props.submitHandler} method="POST" id={props.formId ?? 'prompt-form'}>
@@ -16,7 +25,7 @@ const Prompt = (props) => {
                     </div>
                 </div>
 
-                <p className="prompt__time js-current_time"></p>
+                <p className="prompt__time">{ currentTime }</p>
             </fieldset>
         </form>
     );

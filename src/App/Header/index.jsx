@@ -1,10 +1,8 @@
 import React from 'react'
 import '../Header/header.css'
 import spiderLogo from '../assets/spider-logo.svg'
-import UtilsClass from '../scripts/utils.js';
 import TypewriterClass from '../scripts/typewriter.js';
 
-const Utils = new UtilsClass();
 const Typewriter = new TypewriterClass();
 
 const Header = ({ lastLog }) => {
@@ -40,9 +38,6 @@ const init = () => {
 
             // When done animating paragraphs -> show prompt form
             setTimeout(() => {
-                const currentTimeIndicator = document.querySelector('.js-current_time');
-                currentTimeIndicator.innerHTML = Utils.getCurrentTime();
-
                 const firstForm = document.querySelector('form');
                 firstForm.classList.remove('hide');
 

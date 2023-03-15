@@ -19,7 +19,6 @@ function App() {
   const [lastLog, setLastLog] = React.useState('now');
   const [extraComponents, setComponents] = React.useState([]);
 
-  // TODO: set time
   const setPrompt = () => {
     const newFormId = Utils.getNewPromptId();
     setComponents(oldComponents => [...oldComponents, <Prompt key={newFormId} submitHandler={submitHandler} formId={`prompt-form-${newFormId}`} inputId={`promptInputField-${newFormId}`} />])
@@ -33,6 +32,10 @@ function App() {
     setComponents(oldComponents => [...oldComponents, <Section key={nId} sectionId={`js-${nId}`} sectionHeading={sectionHeading} sectionType={sectionType} />]);
   }
 
+  const handleBeforeUnload = () => {
+    Storage.logVisit();
+  };
+
   React.useEffect(() => {
     setRenderedStatus(true);
 
@@ -43,6 +46,12 @@ function App() {
 
     RenderUI.renderCommentHeadings();
     RenderUI.setPercentageBars();
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
     
   }, [rendered, extraComponents]);
 
@@ -73,7 +82,6 @@ function App() {
 
     if (status.insertPrompt)
       setPrompt();
-
   }
 
   return (
