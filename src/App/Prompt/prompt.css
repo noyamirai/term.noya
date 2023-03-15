@@ -1,0 +1,98 @@
+/*=============================================
+  #PROMPT
+=============================================*/
+.prompt {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+  .prompt > div {
+    display: flex;
+    align-items: center;
+  }
+
+    .prompt__label {
+      position: relative;
+      font-weight: 700;
+    }
+
+    .prompt__label > .blue { display: none; }
+
+    @media only screen and (min-width: 380px) {
+      .prompt__label > .blue { display: inline; }
+    }
+
+    .growing-input {
+      position: relative;
+      margin-left: 6px;
+
+      max-width: 180px;
+    }
+
+      input.prompt__input {
+        /* marker of typing indicator */
+        caret-color: transparent;
+        
+        width: 100%;
+        max-width: 100%;
+
+        font-size: var(--mobile-font-size-px);
+        font-size: var(--mobile-font-size-rem);
+
+        color: var(--highlight-color);
+      }
+
+      input.prompt__input::placeholder { color: #5b627a; }
+
+    .growing-input::before {
+      content: "";
+
+      position: absolute;
+
+      top: 50%;
+      bottom: 0;
+      left: 0;
+
+      transform: translateY(-50%);
+
+      width: 2px;
+      height: 80%;
+
+      background-color: var(--highlight-color);
+
+      -webkit-animation: blink 1s step-end infinite;
+      animation: blink 1s step-end infinite;
+    }
+
+    .growing-input.typing::before {
+      right: -3px;
+      left: unset;
+    }
+
+    .growing-input.disabled::before { display: none; }
+
+    .growing-input.disabled .prompt__input {
+      -webkit-text-fill-color: var(--highlight-color);
+      opacity: 1; /* required on iOS */
+      color: var(--highlight-color);
+    }
+
+    @-webkit-keyframes blink {
+      0% { opacity: 1.0; }
+      50% { opacity: 0.0; }
+      100% { opacity: 1.0; }
+    }
+
+    @keyframes blink {
+      0% { opacity: 1.0; }
+      50% { opacity: 0.0; }
+      100% { opacity: 1.0; }
+    }
+
+  .prompt__time { display: none; }
+
+  @media only screen and (min-width: 600px) {
+    .prompt__time { display: block; }
+  }

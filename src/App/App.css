@@ -1,0 +1,34 @@
+
+/*=============================================
+  #CARD
+=============================================*/
+article {
+  display: inline-block;
+
+  border: 2px solid var(--comment-color);
+  padding: var(--medium-padding) var(--small-padding);
+
+  width: 100%;
+  height: 450px;
+  min-height: 450px;
+
+  border-radius: 5px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  scroll-behavior: smooth;
+  scroll-padding: var(--default-padding);
+}
+
+@media only screen and (min-width: 380px) {
+  article { padding: 24px 16px; }
+}
+
+@media only screen and (min-width: 600px) {
+  article {
+    border: none;
+    padding: 24px 0;
+    height: auto;
+  }
+}

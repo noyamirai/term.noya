@@ -1,0 +1,20 @@
+/*=============================================
+  #HEADER
+=============================================*/
+.header {
+
+}
+
+  .header__logo {
+    width: 40px;
+    height: auto;
+
+    transition: all 250ms ease-in-out;
+  }
+
+  .header__logo + * { margin-top: 8px; }
+
+@media only screen and (min-width: 480px) {
+  .header__logo { width: 50px; }
+  .header__logo + * { margin-top: var(--small-padding) }
+}
