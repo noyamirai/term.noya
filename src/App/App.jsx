@@ -79,22 +79,23 @@ function App() {
 
     if (status.createSection)
       setSection(value);
-
+      
     if (status.insertPrompt)
       setPrompt();
+
   }
 
   return (
     <article>
       <Header lastLog={lastLog}/>
       <Prompt submitHandler={submitHandler}/>
-      <Section sectionHeading="Command list" sectionType="help" />
+      {/* <Section sectionHeading="Command list" sectionType="help" />
       <Section sectionHeading="Get to know me" sectionType="about" />
       <Section sectionHeading="Things Im good at" sectionType="skills" />
       <Section sectionHeading="Projects Im proud of" sectionType="projects" />
       <Section sectionHeading="Contact" sectionType="contact" />
       <Section sectionHeading="Github Profile" sectionType="github" />
-      <Section sectionHeading="Some cool repos" sectionType="repos" />
+      <Section sectionHeading="Some cool repos" sectionType="repos" /> */}
       {extraComponents}
     </article>
   )

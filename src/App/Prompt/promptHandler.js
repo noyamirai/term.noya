@@ -8,79 +8,35 @@ class PromptHandler {
     }
 
     checkSubmission = async (inputContainer, currentInput, userPrompt) => {
-        const isValid = this.isValidPrompt(userPrompt);
-
-        if (!isValid)
-            return false;
-
-        console.log('submission accepted:', userPrompt);
-
-        if (userPrompt == 'clear') {
-            this.clearTerm(inputContainer);
-            return {createSection: false, insertPrompt: false};
-        }
-        
-        const promptType = this.getPromptType(userPrompt);
-
-        inputContainer.classList.add('disabled');
-
-        currentInput.disabled = true;
-        currentInput.style.width = 'auto';
-
-        // removes focus
-        currentInput.blur();
-
-        if (promptType == 'default') {
-            return await this.handleDefaultPrompt(userPrompt);
-        } else {
-            return false;
-            // return await this.handleSillyPrompt(userPrompt);
-        }
-
-    }
-
-    handleDefaultPrompt = async (userPrompt) => {
-
         return new Promise ((resolve) => {
 
-            const allPromptInputs = document.querySelectorAll('form');
+            const isValid = this.isValidPrompt(userPrompt);
+
+            if (!isValid)
+                resolve(false);
+
+            console.log('submission accepted:', userPrompt);
+
+            if (userPrompt == 'clear') {
+                this.clearTerm(inputContainer);
+                resolve({createSection: false, insertPrompt: false});
+                return;
+            }
+            
+            inputContainer.classList.add('disabled');
+
+            currentInput.disabled = true;
+            currentInput.style.width = 'auto';
+
+            // removes focus
+            currentInput.blur();
 
             setTimeout(() => {
-
-                // If it is the first prompt submission (aka only one form element)
-                if (allPromptInputs.length == 1) {
-
-                    const sectionToShow = document.querySelector('.js-' + userPrompt);
-                    const otherSections = document.querySelectorAll('section:not(.js-' + userPrompt + ')');
-                    
-                    // Always 'first try' on load
-                    if (sectionToShow) {
-                        sectionToShow.classList.remove('hide');
-
-                    // After clear we're back to only one prompt, but initially loaded sections don't exist anymore
-                    } else {
-                        resolve({createSection: true, insertPrompt: true});
-                    }
-
-                    // Delete initial sections to avoid html clutter
-                    otherSections.forEach(section => {
-                        section.remove();
-                    });
-
-                // After x prompt submissions
-                } else if (allPromptInputs.length > 1) {
-                    resolve({createSection: true, insertPrompt: true});
-                }
-
-                resolve({createSection: false, insertPrompt: true});
-
+                resolve({createSection: true, insertPrompt: true});            
             }, 350);
-            
-            
-        });
-    }
 
-    handleSillyPrompt = () => {
+        });
+
     }
 
     clearTerm = (inputContainer) => {
@@ -100,6 +56,7 @@ class PromptHandler {
         currentInput.focus();
         inputContainer.classList.remove('typing');
 
+        currentInput.style.width = 'auto';
         const promptEl = inputContainer.closest('.prompt');
 
         // set new time

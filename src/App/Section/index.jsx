@@ -90,7 +90,6 @@ const SectionContent = ({ sectionType }) => {
 
             } else {
                 const jsonData = JSON.parse(data);
-                console.log(jsonData);
                 setGithubData(jsonData);
             }
         }
@@ -401,7 +400,20 @@ const SectionContent = ({ sectionType }) => {
             }
 
             break;
-            
+        
+        case 'hello': case 'hi':
+            return (
+                <p>hi there :)!</p>
+            );
+        case 'stinky':
+            return (
+                <p>you stinky</p>
+            );
+        case 'hehe':
+            return (
+                <p>hehehe</p>
+            );
+
         default:
             break;
     }

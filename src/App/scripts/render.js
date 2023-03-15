@@ -86,6 +86,7 @@ class Render {
       // removes focus
       currentInput.blur();
       inputContainer.classList.remove('typing');
+        currentInput.style.width = 'auto';
     }
 }
 
