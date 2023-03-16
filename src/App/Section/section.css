@@ -159,6 +159,8 @@
 .tag--green,
 .tag--nodejs { background-color: var(--green); }
 
+.yellow { color: var(--yellow); }
+
 /*=============================================
   #GITHUB PROFILE
 =============================================*/

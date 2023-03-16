@@ -19,8 +19,6 @@ const Section = (props) => {
 
 const SectionContent = ({ sectionType, gitData }) => {
 
-    console.log(gitData);
-
     switch (sectionType) {
         case 'help':
 
@@ -74,6 +72,28 @@ const SectionContent = ({ sectionType, gitData }) => {
                 <div className="info__content">
                     <ul className="skills">
                         <li className="skill__item">
+                            <p>Apex Legends</p>
+                            <div className="skill__level">
+                                <span className="skill__level__indicator js-skill-level-container" data-percentage="100">
+                                    <span className="blue">[</span>
+                                    <span className="js-level">----------</span>
+                                    <span className="blue">]</span>
+                                </span>
+                                <p className="skill__level__percentage js-level-percentage">0%</p>
+                            </div>
+                        </li>
+                        <li className="skill__item">
+                            <p>UI/UX design</p>
+                            <div className="skill__level">
+                                <span className="skill__level__indicator js-skill-level-container" data-percentage="80">
+                                    <span className="blue">[</span>
+                                    <span className="js-level">----------</span>
+                                    <span className="blue">]</span>
+                                </span>
+                                <p className="skill__level__percentage js-level-percentage">0%</p>
+                            </div>
+                        </li>
+                        <li className="skill__item">
                             <p>HMTL/CSS</p>
                             <div className="skill__level">
                                 <span className="skill__level__indicator js-skill-level-container" data-percentage="90">
@@ -85,7 +105,7 @@ const SectionContent = ({ sectionType, gitData }) => {
                             </div>
                         </li>
                         <li className="skill__item">
-                            <p>React.js</p>
+                            <p>React.js <span className="yellow">(NEW)</span></p>
                             <div className="skill__level">
                                 <span className="skill__level__indicator js-skill-level-container" data-percentage="30">
                                     <span className="blue">[</span>
@@ -149,6 +169,39 @@ const SectionContent = ({ sectionType, gitData }) => {
                 <div className="info__content">
                     <ul className="generic-list">
                         <li className="list__item">
+                            <h3>&gt;_<strong>This site!</strong> <span>~A terminal themed portfolio site made in React (for the first time) to expand my skillset.</span></h3>
+                            <ul className="list__item__tags">
+                                <li className="tag tag--red">
+                                    HTML
+                                </li>
+                                <li className="tag tag--purple">
+                                    CSS
+                                </li>
+                                <li className="tag tag--blue">
+                                    JS
+                                </li>
+                                <li className="tag tag--blue">
+                                    React.js
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="list__item">
+                            <a href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/" target="_blank" rel="noopener noreferrer">
+                                <h3>&#128279; WSL Personal Hub <span>~a browser-based single-page women's football application, designed to keep you up-to-date with your favorite teams in the FA Women's Super League.</span></h3>
+                            </a>
+                            <ul className="list__item__tags">
+                                <li className="tag tag--red">
+                                    HTML
+                                </li>
+                                <li className="tag tag--purple">
+                                    CSS
+                                </li>
+                                <li className="tag tag--blue">
+                                    JS
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="list__item">
                             <a href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/" target="_blank" rel="noopener noreferrer">
                                 <h3>&#128279; CMD Online <span>~A browser based matching application that helps teachers of CMD create well-balanced project teams based on skills of students.</span></h3>
                             </a>
@@ -156,40 +209,6 @@ const SectionContent = ({ sectionType, gitData }) => {
                                 <li className="tag tag--yellow">
                                     GDA 2022 Nominee
                                 </li>
-                                <li className="tag tag--red">
-                                    HTML
-                                </li>
-                                <li className="tag tag--purple">
-                                    CSS
-                                </li>
-                                <li className="tag tag--blue">
-                                    JS
-                                </li>
-                                <li className="tag tag--green">
-                                    Node.js
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="list__item">
-                            <h3>&gt;_Activibes <span>~A tool used at work to let other know how you're feeling everyday in order to improve team awareness and closeness.</span></h3>
-                            <ul className="list__item__tags">
-                                <li className="tag tag--red">
-                                    HTML
-                                </li>
-                                <li className="tag tag--purple">
-                                    CSS
-                                </li>
-                                <li className="tag tag--blue">
-                                    JS
-                                </li>
-                                <li className="tag tag--green">
-                                    Node.js
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="list__item">
-                            <h3>&gt;_Actiscan <span>~Web application that helps standholders scan leads via QR codes and form connections while being at an event.</span></h3>
-                            <ul className="list__item__tags">
                                 <li className="tag tag--red">
                                     HTML
                                 </li>
@@ -223,6 +242,46 @@ const SectionContent = ({ sectionType, gitData }) => {
                                 </li>
                                 <li className="tag tag--green">
                                     Node.js
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="list__item">
+                            <h3>&gt;_<strong>Activibes</strong> <span>~A tool used at work to let other know how you're feeling everyday in order to improve team awareness and closeness.</span></h3>
+                            <ul className="list__item__tags">
+                                <li className="tag tag--red">
+                                    HTML
+                                </li>
+                                <li className="tag tag--purple">
+                                    CSS
+                                </li>
+                                <li className="tag tag--blue">
+                                    JS
+                                </li>
+                                <li className="tag tag--green">
+                                    Node.js
+                                </li>
+                                <li className="tag">
+                                    Work related
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="list__item">
+                            <h3>&gt;_<strong>Actiscan</strong> <span>~Web application that helps standholders scan leads via QR codes and form connections while being at an event.</span></h3>
+                            <ul className="list__item__tags">
+                                <li className="tag tag--red">
+                                    HTML
+                                </li>
+                                <li className="tag tag--purple">
+                                    CSS
+                                </li>
+                                <li className="tag tag--blue">
+                                    JS
+                                </li>
+                                <li className="tag tag--green">
+                                    Node.js
+                                </li>
+                                <li className="tag">
+                                    Work related
                                 </li>
                             </ul>
                         </li>
@@ -312,7 +371,7 @@ const SectionContent = ({ sectionType, gitData }) => {
                                 {gitData.profile.location}
                             </li>
                             <li className='list__item list__item--lang'>
-                                Most used lang: Javascript
+                                Most used lang: {gitData.profile.most_used_language}
                             </li>
                             <li className='list__item list__item--repos'>
                                 {gitData.profile.public_repos} repos

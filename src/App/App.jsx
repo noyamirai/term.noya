@@ -20,7 +20,6 @@ function App() {
   const [lastLog, setLastLog] = React.useState('now');
   const [extraComponents, setComponents] = React.useState([]);
 
-  // const { gitData } = [];
   const { gitData } = useData(['users/noyamirai', 'users/noyamirai/repos']);
 
   const setPrompt = () => {
