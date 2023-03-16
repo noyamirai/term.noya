@@ -94,9 +94,9 @@ const SectionContent = ({ sectionType, gitData }) => {
                             </div>
                         </li>
                         <li className="skill__item">
-                            <p>HMTL/CSS</p>
+                            <p>React.js <span className="yellow">(NEW)</span></p>
                             <div className="skill__level">
-                                <span className="skill__level__indicator js-skill-level-container" data-percentage="90">
+                                <span className="skill__level__indicator js-skill-level-container" data-percentage="30">
                                     <span className="blue">[</span>
                                     <span className="js-level">----------</span>
                                     <span className="blue">]</span>
@@ -105,9 +105,9 @@ const SectionContent = ({ sectionType, gitData }) => {
                             </div>
                         </li>
                         <li className="skill__item">
-                            <p>React.js <span className="yellow">(NEW)</span></p>
+                            <p>HMTL/CSS</p>
                             <div className="skill__level">
-                                <span className="skill__level__indicator js-skill-level-container" data-percentage="30">
+                                <span className="skill__level__indicator js-skill-level-container" data-percentage="90">
                                     <span className="blue">[</span>
                                     <span className="js-level">----------</span>
                                     <span className="blue">]</span>

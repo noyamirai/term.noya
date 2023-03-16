@@ -94,6 +94,11 @@ function App() {
 
   return (
     <article>
+      <div className='notice-wrapper'>
+        <a className="notice" href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/" target="_blank">GDA Nominee '22</a>
+        <a className="notice" href="https://www.cmd-amsterdam.nl/portfolio/hacking-simulator-1-0/" target="_blank">GDA Nominee '21</a>
+      </div>
+
       <Header lastLog={lastLog}/>
       <Prompt submitHandler={submitHandler}/>
       {extraComponents}
