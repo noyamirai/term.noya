@@ -1,7 +1,7 @@
 import React from "react";
 import '../Prompt/prompt.css';
 
-import UtilsClass from '../scripts/utils';
+import UtilsClass from '../../scripts/utils';
 const Utils = new UtilsClass();
 
 const Prompt = (props) => {

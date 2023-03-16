@@ -1,7 +1,7 @@
 import React from 'react'
 import '../Header/header.css'
-import spiderLogo from '../assets/spider-logo.svg'
-import TypewriterClass from '../scripts/typewriter.js';
+import spiderLogo from '../../assets/spider-logo.svg'
+import TypewriterClass from '../../scripts/typewriter.js';
 
 const Typewriter = new TypewriterClass();
 

@@ -1,4 +1,4 @@
-import UtilsClass from '../scripts/utils';
+import UtilsClass from '../../scripts/utils';
 
 class PromptHandler {
 

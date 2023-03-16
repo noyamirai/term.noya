@@ -1,14 +1,14 @@
 import React from 'react'
-import Header from './Header/index'
-import Prompt from './Prompt/index'
-import Section from './Section/index';
+import Header from './Components/Header/index'
+import Prompt from './Components/Prompt/index'
+import Section from './Components/Section/index';
 
 import './App.css'
 
 import StorageClass from './scripts/storage'
 import RenderClass from './scripts/render'
 import UtilsClass from './scripts/utils';
-import PromptHandlerClass from './Prompt/promptHandler'
+import PromptHandlerClass from './Components/Prompt/promptHandler'
 import { useData } from './Hooks/useData';
 
 const Storage = new StorageClass();
