@@ -8,13 +8,14 @@ class Storage {
 
     retrieveLastVisit = () => {
 
-        if("lastVisit" in localStorage){
-            let lastVisit = localStorage.getItem("lastVisit");
-            return lastVisit
-        }
+        let lastVisit = localStorage.getItem("lastVisit");
 
-        this.logVisit();
-        return;
+        if(lastVisit === null){
+            this.logVisit();
+            return;
+        }
+        
+        return lastVisit;
     }
 
     logVisit = () => {
