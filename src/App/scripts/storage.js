@@ -12,7 +12,9 @@ class Storage {
 
         if(lastVisit === null){
             this.logVisit();
-            return;
+
+            let newVisit = localStorage.getItem("lastVisit");
+            return newVisit;
         }
         
         return lastVisit;
