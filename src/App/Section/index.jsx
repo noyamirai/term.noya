@@ -1,6 +1,7 @@
 import React from "react";
 import './section.css';
 import Heading from '../Heading/index'
+// import { useData } from "../Hooks/useData";
 
 const Section = (props) => {
 
@@ -10,91 +11,16 @@ const Section = (props) => {
         <section id={props.sectionId ?? type} className={`info ${['git', 'github'].includes(type) ? 'info--profile' : ''} js-${props.sectionType} ${props.sectionId ? '' : 'hide'}`}>
             {props.sectionHeading ? <Heading text={props.sectionHeading} /> : ''}
 
-            <SectionContent sectionType={type} />
+            <SectionContent sectionType={type} gitData={props.gitData} />
         </section>
     );
 
 };
 
-const SectionContent = ({ sectionType }) => {
+const SectionContent = ({ sectionType, gitData }) => {
 
-    const [gitData, setGithubData] = React.useState(false);
+    console.log(gitData);
 
-    React.useEffect(() => {
-        const fetchData = async (params) => {
-            const response = await fetch(`https://api.github.com/${params}`);
-
-            if (response.ok) {
-                console.log('RESPONSE OK!!');
-
-                // Convert the response to JavaScript Object
-                const data = await response.json();
-
-                return data;
-            } else {
-                // If the response is not successful, throw an error with the HTTP status code
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-        }
-
-        const getData = async () => {
-
-            let fetches = [];
-            fetches.push(await fetchData('users/noyamirai'));
-            fetches.push(await fetchData('users/noyamirai/repos'));
-
-            const result = await Promise.all(fetches).then((data) => {
-
-                const repos = data[1].filter((item) => {
-                    if (['term.noya', 'WSLH', 'cmd-online', 'discord.github.io'].includes(item.name)) {
-                        return item;
-                    }
-                })
-
-                return { profile: data[0], repos: repos };
-            });
-
-            let languages = {};
-
-            for (let i = 0; i < result.repos.length; i++) {
-                const repo = result.repos[i];
-
-                if (repo.language) {
-                    // key exists in object -> increase count
-                    if ((repo.language in languages)) {
-                        languages[repo.language] = languages[repo.language] + 1;
-
-                        // key doesnt exist -> create and set count to 1
-                    } else {
-                        languages[repo.language] = 1;
-                    }
-                }
-            }
-
-            const mostUsedLang = Object.keys(languages).reduce((a, b) => languages[a] > languages[b] ? a : b);
-            result.profile.most_used_language = mostUsedLang;
-
-            return result;
-        }
-
-        if (['git', 'github', 'repos'].includes(sectionType)) {
-
-            const data = localStorage.getItem('gitProfile');
-
-            if (data === null) {
-
-                getData().then((result) => {
-                    localStorage.setItem('gitProfile', JSON.stringify(result));
-                    setGithubData(result);
-                });
-
-            } else {
-                const jsonData = JSON.parse(data);
-                setGithubData(jsonData);
-            }
-        }
-    }, [])
-    
     switch (sectionType) {
         case 'help':
 
@@ -138,7 +64,7 @@ const SectionContent = ({ sectionType }) => {
                 <div className="info__content">
                     <p>&gt;_Hello! I guess you&#39;re here to read a little more about who I am and what I do.</p>
                     <p>&gt;_My name is Maijla Ikiz, I am a 24 y/o <s>nerd</s> full-stack web developer + designer by day and average video game enthusiast by night :&#41;</p>
-                    <p>&gt;_I am currently a third year Communication &amp; Multimedia Design student at the Amsterdam University of Applied Sciences. In the meantime I have also been working as a part-time web developer @ <a target='_blank' title="https://activo.nl" href="https://activo.nl">Activo</a> for over 4 years now.</p>
+                    <p>&gt;_I am currently a third year Communication &amp; Multimedia Design student at the Amsterdam University of Applied Sciences. In the meantime I have also been working as a part-time web developer @ <a target="_blank" rel="noopener noreferrer" title="https://activo.nl" href="https://activo.nl">Activo</a> for over 4 years now.</p>
                 </div>
             );
 
@@ -223,7 +149,7 @@ const SectionContent = ({ sectionType }) => {
                 <div className="info__content">
                     <ul className="generic-list">
                         <li className="list__item">
-                            <a href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/">
+                            <a href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/" target="_blank" rel="noopener noreferrer">
                                 <h3>&#128279; CMD Online <span>~A browser based matching application that helps teachers of CMD create well-balanced project teams based on skills of students.</span></h3>
                             </a>
                             <ul className="list__item__tags">
@@ -279,7 +205,7 @@ const SectionContent = ({ sectionType }) => {
                             </ul>
                         </li>
                         <li className="list__item">
-                            <a href="https://www.cmd-amsterdam.nl/portfolio/hacking-simulator-1-0/" target="_blank">
+                            <a href="https://www.cmd-amsterdam.nl/portfolio/hacking-simulator-1-0/" target="_blank" rel="noopener noreferrer">
                                 <h3>&#128279; Hacking Simulator <span>~A Cyberpunk 2077 inspired “simulator” I made in JS for a school assignment.</span></h3>
                             </a>
                             <ul className="list__item__tags">
@@ -305,42 +231,37 @@ const SectionContent = ({ sectionType }) => {
             );
 
         case 'repos':
-
-            if (gitData) {
             
-                return (
-                    <div className="info__content">
-                        <ul className="generic-list">
+            return (
+                <div className="info__content">
+                    <ul className="generic-list">
 
-                            { gitData.repos.map((val, k) => {
-                                return (
-                                    <li key={k} className="list__item">
-                                        <a href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/">
-                                            <h3>&#128279; {val.name} <span>{val.description ? '~' + val.description : ''}</span></h3>
-                                        </a>
-                                        <ul className="list__item__tags">
-                                            
-                                            {val.topics.length ? val.topics.map((topic, topicK) => {
-                                                return (
-                                                    <li key={topicK} className={`tag tag--` + topic.toLowerCase()}>
-                                                        {topic.toUpperCase()}
-                                                    </li>
-                                                );
-                                            }) : <li className={val.language ? `tag tag--` + val.language.toLowerCase() : `tag` }>
-                                                {val.language ?? 'no data'}
-                                            </li> }
-                                        </ul>
-                                    </li>
-                                );
-                            }) }
+                        { gitData.repos.map((val, k) => {
+                            return (
+                                <li key={k} className="list__item">
+                                    <a href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/" target="_blank" rel="noopener noreferrer">
+                                        <h3>&#128279; {val.name} <span>{val.description ? '~' + val.description : ''}</span></h3>
+                                    </a>
+                                    <ul className="list__item__tags">
+                                        
+                                        {val.topics.length ? val.topics.map((topic, topicK) => {
+                                            return (
+                                                <li key={topicK} className={`tag tag--` + topic.toLowerCase()}>
+                                                    {topic.toUpperCase()}
+                                                </li>
+                                            );
+                                        }) : <li className={val.language ? `tag tag--` + val.language.toLowerCase() : `tag` }>
+                                            {val.language ?? 'no data'}
+                                        </li> }
+                                    </ul>
+                                </li>
+                            );
+                        }) }
 
 
-                        </ul>
-                    </div>
-                );
-            }
-
-            break;
+                    </ul>
+                </div>
+            );
 
         case 'contact': 
 
@@ -364,42 +285,42 @@ const SectionContent = ({ sectionType }) => {
                 </div>
             );
     
-        case 'error': 
+        case 'unknown': 
             return(
                 <p>command not found. type "help" to see available commands.</p>
             );
         
+        case 'error': 
+            return(
+                <p>task failed succesfully :D! (try again)</p>
+            );
+        
         case 'git': case 'github':
 
-            if (gitData) {
+            return (
+                <div className='info__content'>
+                    <picture>
+                        <img src={gitData.profile.avatar_url} alt="Profile picture" />
+                    </picture>
 
-                return (
-                    <div className='info__content'>
-                        <picture>
-                            <img src={gitData.profile.avatar_url} alt="Profile picture" />
-                        </picture>
+                    <div>
+                        <h3>{gitData.profile.name} <a className='link' href='https://github.com/noyamirai' target={'_blank'}>@{gitData.profile.login}</a></h3>
+                        <p>{gitData.profile.bio}</p>
 
-                        <div>
-                            <h3>{gitData.profile.name} <a className='link' href='https://github.com/noyamirai' target={'_blank'}>@{gitData.profile.login}</a></h3>
-                            <p>{gitData.profile.bio}</p>
-
-                            <ul className='profile-details'>
-                                <li className='list__item list__item--location'>
-                                    {gitData.profile.location}
-                                </li>
-                                <li className='list__item list__item--lang'>
-                                    Most used lang: Javascript
-                                </li>
-                                <li className='list__item list__item--repos'>
-                                    {gitData.profile.public_repos} repos
-                                </li>
-                            </ul>
-                        </div>
+                        <ul className='profile-details'>
+                            <li className='list__item list__item--location'>
+                                {gitData.profile.location}
+                            </li>
+                            <li className='list__item list__item--lang'>
+                                Most used lang: Javascript
+                            </li>
+                            <li className='list__item list__item--repos'>
+                                {gitData.profile.public_repos} repos
+                            </li>
+                        </ul>
                     </div>
-                );
-            }
-
-            break;
+                </div>
+            );
         
         case 'hello': case 'hi':
             return (

@@ -9,6 +9,7 @@ import StorageClass from './scripts/storage'
 import RenderClass from './scripts/render'
 import UtilsClass from './scripts/utils';
 import PromptHandlerClass from './Prompt/promptHandler'
+import { useData } from './Hooks/useData';
 
 const Storage = new StorageClass();
 const RenderUI = new RenderClass();
@@ -18,6 +19,9 @@ function App() {
   const [rendered, setRenderedStatus] = React.useState(false);
   const [lastLog, setLastLog] = React.useState('now');
   const [extraComponents, setComponents] = React.useState([]);
+
+  // const { gitData } = [];
+  const { gitData } = useData(['users/noyamirai', 'users/noyamirai/repos']);
 
   const setPrompt = () => {
     const newFormId = Utils.getNewPromptId();
@@ -29,7 +33,7 @@ function App() {
     const nId = sectionType + '-' + (allSpecificSections.length + 1);
     const sectionHeading = Utils.getSectionHeading(sectionType);
 
-    setComponents((oldComponents) => [...oldComponents, <Section key={oldComponents.length} sectionId={`js-${nId}`} sectionHeading={sectionHeading} sectionType={sectionType} />]);
+    setComponents((oldComponents) => [...oldComponents, <Section key={oldComponents.length} sectionId={`js-${nId}`} sectionHeading={sectionHeading} sectionType={sectionType} gitData={gitData} />]);
   }
 
   const handleBeforeUnload = () => {
@@ -65,18 +69,22 @@ function App() {
     
     const status = await PromptHandler.checkSubmission(inputContainer, currentInput, value.toLocaleLowerCase());
     
-    // unknown prompt
-    if (!status) {
+    // unknown prompt or fetch went wrong
+    if (!status || ((value.toLocaleLowerCase() == 'git' || value.toLocaleLowerCase() == 'github') && !gitData)) {
       RenderUI.disablePrompt(inputContainer, currentInput);
 
+      const errorType = !gitData ? 'error' : 'unknown';
+
       setTimeout(() => {
-        setSection('error');
+        setSection(errorType);
         setPrompt();
       }, 350);
 
       return false;
     }
 
+    console.log(gitData);
+    
     if (status.createSection)
       setSection(value);
       
@@ -89,13 +97,6 @@ function App() {
     <article>
       <Header lastLog={lastLog}/>
       <Prompt submitHandler={submitHandler}/>
-      {/* <Section sectionHeading="Command list" sectionType="help" />
-      <Section sectionHeading="Get to know me" sectionType="about" />
-      <Section sectionHeading="Things Im good at" sectionType="skills" />
-      <Section sectionHeading="Projects Im proud of" sectionType="projects" />
-      <Section sectionHeading="Contact" sectionType="contact" />
-      <Section sectionHeading="Github Profile" sectionType="github" />
-      <Section sectionHeading="Some cool repos" sectionType="repos" /> */}
       {extraComponents}
     </article>
   )
