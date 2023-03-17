@@ -64,6 +64,16 @@ class Utils {
 
         return id;
     }
+
+    downloadPDF = (pdf_file) => {
+        const fileUrl = `/${pdf_file}`;
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.setAttribute('download', pdf_file);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
     
 }
 

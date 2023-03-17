@@ -89,20 +89,19 @@ function App() {
       setPrompt();
 
     if (value.toLocaleLowerCase() == 'download-resume') {
-      const fileUrl = '/maijla_ikiz-resume.pdf';
-      const link = document.createElement('a');
-      link.href = fileUrl;
-      link.setAttribute('download', 'maijla_ikiz-resume.pdf');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      Utils.downloadPDF('maijla_ikiz-resume.pdf');
     }
 
   }
 
   return (
     <article>
+      <div className='notice-wrapper notice-wrapper--top'>
+        <a className="notice" href="/maijla_ikiz-resume.pdf" target="_blank">Resume.pdf</a>
+      </div>
+
       <div className='notice-wrapper'>
+        <a className="notice notice--resume" href="/maijla_ikiz-resume.pdf" target="_blank">Resume.pdf</a>
         <a className="notice" href="https://www.cmd-amsterdam.nl/portfolio/cmd-online/" target="_blank">GDA Nominee '22</a>
         <a className="notice" href="https://www.cmd-amsterdam.nl/portfolio/hacking-simulator-1-0/" target="_blank">GDA Nominee '21</a>
       </div>

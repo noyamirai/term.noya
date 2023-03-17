@@ -225,6 +225,25 @@ main {
   transform: translateX(-50%);
 }
 
+.notice-wrapper--top {
+  bottom: unset;
+  top: 0;
+}
+
+  .notice-wrapper--top .notice {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    background-color: var(--red)!important;
+  }
+
+  .notice--resume {
+    display: none;
+  }
+
   .notice {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
@@ -243,7 +262,7 @@ main {
     transition: padding 250ms ease-in-out;
   }
 
-  .notice:nth-of-type(odd) {
+  .notice:nth-of-type(even) {
     background-color: var(--yellow);
   }
 
@@ -258,12 +277,21 @@ main {
       bottom: unset;
     }
 
+    .notice-wrapper--top {
+      display: none;
+    }
+
       .notice {
         border-top-right-radius: 0;
         border-top-left-radius: 0;
 
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
+      }
+
+      .notice--resume {
+        display: block;
+        background-color: var(--red)!important;
       }
 
       .notice:hover {
