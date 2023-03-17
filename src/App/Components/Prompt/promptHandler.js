@@ -3,7 +3,7 @@ import UtilsClass from '../../scripts/utils';
 class PromptHandler {
 
     constructor () {
-        this.defaultPrompts = ['help', 'about', 'projects', 'skills', 'contact', 'git', 'github', 'repos', 'clear'];
+        this.defaultPrompts = ['help', 'about', 'projects', 'skills', 'contact', 'git', 'github', 'repos', 'clear', 'download-resume'];
         this.sillyPrompts = ['hi', 'hello', 'stinky', 'hehe'];
     }
 

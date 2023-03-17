@@ -82,13 +82,21 @@ function App() {
       return false;
     }
 
-    console.log(gitData);
-    
     if (status.createSection)
       setSection(value);
       
     if (status.insertPrompt)
       setPrompt();
+
+    if (value.toLocaleLowerCase() == 'download-resume') {
+      const fileUrl = '/maijla_ikiz-resume.pdf';
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.setAttribute('download', 'maijla_ikiz-resume.pdf');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
 
   }
 

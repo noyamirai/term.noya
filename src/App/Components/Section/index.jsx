@@ -44,10 +44,10 @@ const SectionContent = ({ sectionType, gitData }) => {
                             <h3>repos</h3>
                         </li>
                         <li className="list__item">
-                            <h3>git</h3>
+                            <h3>github</h3>
                         </li>
                         <li className="list__item">
-                            <h3>github</h3>
+                            <h3>download-resume</h3>
                         </li>
                         <li className="list__item">
                             <h3>clear</h3>
@@ -392,6 +392,10 @@ const SectionContent = ({ sectionType, gitData }) => {
         case 'hehe':
             return (
                 <p>hehehe</p>
+            );
+        case 'download-resume':
+            return (
+                <p>My resume should be downloaded shortly! In case it didn't download, you can use this <a href="/maijla_ikiz-resume.pdf" target="_blank" download>link</a> to start the download manually.</p>
             );
 
         default:
