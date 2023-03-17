@@ -223,6 +223,8 @@ main {
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
+
+  z-index: 300;
 }
 
 .notice-wrapper--top {
@@ -273,8 +275,13 @@ main {
   @media only screen and (min-width: 600px) {
 
     .notice-wrapper {
+
       top: 0;
       bottom: unset;
+      background-color: linear-gradient(4px 4px black);
+      padding-bottom: 30px;
+      /* backdrop-filter: blur(10px); */
+      background: linear-gradient(0deg, rgba(27,29,41,0) 0%, rgba(27,29,41,1) 60%);
     }
 
     .notice-wrapper--top {
