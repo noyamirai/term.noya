@@ -275,12 +275,12 @@ main {
   @media only screen and (min-width: 600px) {
 
     .notice-wrapper {
-
       top: 0;
       bottom: unset;
-      background-color: linear-gradient(4px 4px black);
       padding-bottom: 30px;
+      
       /* backdrop-filter: blur(10px); */
+      background: rgba(27,29,41,0);
       background: linear-gradient(0deg, rgba(27,29,41,0) 0%, rgba(27,29,41,1) 60%);
     }
 
